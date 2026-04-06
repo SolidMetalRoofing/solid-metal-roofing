@@ -32,8 +32,26 @@
   </url>
   <url>
     <loc>https://solidmetalroofing.ca/blog.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://solidmetalroofing.ca/blog-metal-vs-shingles.html</loc>
+    <lastmod>2026-04-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://solidmetalroofing.ca/blog-roof-maintenance.html</loc>
+    <lastmod>2026-04-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://solidmetalroofing.ca/blog-metal-roof-benefits.html</loc>
+    <lastmod>2026-04-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>

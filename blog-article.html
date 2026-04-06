@@ -3,22 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Gallery | Solid Metal Roofing — Our Work Across Alberta</title>
-  <meta name="description" content="Browse our gallery of metal roofing projects across Alberta — residential homes, commercial buildings, and agricultural structures. See our work for yourself.">
-  <meta name="keywords" content="metal roofing gallery, roofing projects Alberta, metal roof photos, standing seam gallery, before and after roofing">
+  <title>Blog | Solid Metal Roofing</title>
+  <meta name="description" content="Expert roofing advice from Solid Metal Roofing — Alberta's metal roofing specialists.">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://solidmetalroofing.ca/gallery.html">
-  <meta property="og:title" content="Project Gallery | Solid Metal Roofing">
-  <meta property="og:description" content="Browse our metal roofing projects across Alberta.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://solidmetalroofing.ca/gallery.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
-
 <body>
 
   <!-- HEADER -->
@@ -27,87 +20,64 @@
       <a href="index.html" class="logo" aria-label="Solid Metal Roofing Home">
         <img src="assets/logo.png" alt="Solid Metal Roofing" class="logo-img">
       </a>
-
       <nav class="nav-desktop" aria-label="Main navigation">
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="services.html">Services</a></li>
-          <li><a href="gallery.html" class="active">Gallery</a></li>
-          <li><a href="blog.html">Blog</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="blog.html" class="active">Blog</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>
-
       <a href="contact.html" class="btn btn-primary nav-cta">Get a Free Quote</a>
       <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </header>
-
   <nav class="nav-mobile" aria-label="Mobile navigation">
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="services.html">Services</a></li>
-      <li><a href="gallery.html" class="active">Gallery</a></li>
-      <li><a href="blog.html">Blog</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
-    <div class="mobile-cta">
-      <a href="contact.html" class="btn btn-primary" style="width:100%;justify-content:center;">Get a Free Quote</a>
-    </div>
+    <div class="mobile-cta"><a href="contact.html" class="btn btn-primary" style="width:100%;justify-content:center;">Get a Free Quote</a></div>
   </nav>
 
   <main>
-
-    <!-- HERO -->
     <section class="page-hero">
       <div class="container">
-        <nav class="breadcrumb" aria-label="Breadcrumb">
-          <a href="index.html">Home</a> <span>›</span> <span>Gallery</span>
-        </nav>
-        <h1>Project Gallery</h1>
-        <p>See the quality of our work firsthand — real projects on real Alberta properties.</p>
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a> <span>›</span> <a href="blog.html">Blog</a> <span>›</span> <span id="breadcrumb-title">Article</span></nav>
+        <h1 id="article-title">Loading...</h1>
+        <p id="article-meta"></p>
       </div>
     </section>
 
-    <!-- GALLERY SECTION -->
     <section class="section">
-      <div class="container">
-
-        <!-- FILTER BUTTONS -->
-        <div class="gallery-filter fade-in">
-          <button class="active" data-filter="all">All Projects</button>
-          <button data-filter="residential">Residential</button>
-          <button data-filter="commercial">Commercial</button>
-          <button data-filter="agricultural">Agricultural</button>
-          <button data-filter="repairs">Repairs</button>
-        </div>
-
-        <!-- GALLERY GRID -->
-        <div class="gallery-grid" id="galleryGrid">
-          <!-- Gallery items loaded dynamically from assets/gallery.json -->
-          <p class="gallery-loading" style="grid-column:1/-1;text-align:center;color:var(--gray-500);">Loading projects...</p>
+      <div class="container" style="max-width:760px;">
+        <article id="article-body" class="blog-article-content fade-in">
+          <p>Loading article...</p>
+        </article>
+        <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--gray-200);">
+          <a href="blog.html" style="font-weight:700;font-size:0.9rem;text-transform:uppercase;letter-spacing:0.04em;">← Back to Blog</a>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
     <section class="cta-section">
       <div class="container">
-        <h2>Your Project Could Be Next</h2>
-        <p>Let's talk about what you need and show you what's possible.</p>
-        <a href="contact.html" class="btn btn-white btn-lg">Get Your Free Quote</a>
+        <h2>Have Questions About Your Roof?</h2>
+        <p>We're happy to answer them — no sales pitch, just honest advice.</p>
+        <a href="contact.html" class="btn btn-white btn-lg">Ask Us Anything</a>
       </div>
     </section>
-
   </main>
 
-  <!-- FOOTER -->
   <footer class="site-footer" role="contentinfo">
     <div class="container">
       <div class="footer-grid">
-
         <div class="footer-brand">
           <div class="logo-text" style="margin-bottom:0.75rem;">Solid <span style="color:#8bc34a;">Metal Roofing</span></div>
           <p>Alberta's trusted experts in metal roofing for homes, farms, and commercial properties.</p>
@@ -120,37 +90,8 @@
             </a>
           </div>
         </div>
-
-        <div>
-          <div class="footer-heading">Navigation</div>
-          <ul class="footer-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <div class="footer-heading">Resources</div>
-          <ul class="footer-links">
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="contact.html">Free Quote</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <div class="footer-heading">Contact</div>
-          <ul class="footer-links">
-            <li>Based in Westlock, AB</li>
-            <li><a href="tel:+17803078599">(780) 307-8599</a></li>
-            <li><a href="mailto:solidmetalroofing2025@gmail.com">solidmetalroofing2025@gmail.com</a></li>
-          </ul>
-        </div>
-
-      </div>
-
+        <div><div class="footer-heading">Navigation</div><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="gallery.html">Gallery</a></li></ul></div>
+        <div><div class="footer-heading">Resources</div><ul class="footer-links"><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li><li><a href="contact.html">Free Quote</a></li></ul></div>
         <div><div class="footer-heading">Contact</div><ul class="footer-links"><li>Based in Westlock, AB</li><li><a href="tel:+17803078599">(780) 307-8599</a></li><li><a href="mailto:solidmetalroofing2025@gmail.com">solidmetalroofing2025@gmail.com</a></li></ul></div>
       </div>
       <div class="footer-bottom">
@@ -158,6 +99,7 @@
       </div>
     </div>
   </footer>
+
   <script src="site-data.js"></script>
   <script src="script.js"></script>
 </body>
