@@ -1,0 +1,16 @@
+{
+  "name": "Solid Metal Roofing",
+  "short_name": "Solid Metal",
+  "icons": [
+    {
+      "src": "assets/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#2F5D0D"
+}
