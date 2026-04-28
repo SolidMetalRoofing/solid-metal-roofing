@@ -68,6 +68,8 @@
           <div class="fade-in">
             <h2 style="margin-bottom:1.5rem;font-size:1.4rem;">Send Us a Message</h2>
             <form id="contactForm" novalidate>
+              <!-- Honeypot field for spam protection (hidden from real users) -->
+              <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" aria-hidden="true">
               <div class="form-group">
                 <label for="name">Full Name *</label>
                 <input type="text" id="name" name="name" placeholder="Your full name" required autocomplete="name">

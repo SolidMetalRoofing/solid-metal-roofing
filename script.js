@@ -61,7 +61,7 @@
 
   observeFadeIns();
 
-  /* --- CONTACT FORM HANDLER --- */
+  /* --- CONTACT FORM HANDLER (Web3Forms) --- */
   var contactForm = document.getElementById('contactForm');
   if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
@@ -86,12 +86,34 @@
       submitBtn.textContent = 'Sending...';
       submitBtn.disabled = true;
 
-      setTimeout(function () {
-        showToast('Thank you! We\'ll be in touch within 24 hours.', 'success');
-        contactForm.reset();
+      // Build payload from form data and add Web3Forms metadata
+      var formData = new FormData(contactForm);
+      var serviceVal = (contactForm.querySelector('[name="service"]') || {}).value || '';
+      formData.append('access_key', 'eaa44257-d5f7-4f60-8ef7-4a1f29bdda78');
+      formData.append('subject', 'New Quote Request from ' + name.value.trim() + (serviceVal ? ' — ' + serviceVal : ''));
+      formData.append('from_name', 'Solid Metal Roofing Website');
+      formData.append('replyto', email.value.trim());
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      })
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        if (data && data.success) {
+          showToast('Thank you! We\'ll be in touch within 24 hours.', 'success');
+          contactForm.reset();
+        } else {
+          showToast('Something went wrong. Please call us at (780) 307-8599.', 'error');
+        }
+      })
+      .catch(function () {
+        showToast('Network error. Please call us at (780) 307-8599.', 'error');
+      })
+      .finally(function () {
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
-      }, 1200);
+      });
     });
   }
 
