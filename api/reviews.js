@@ -9,6 +9,9 @@ const SEARCHES = ['Solid Metal Roofing Westlock', 'Solid Metal Roofing Alberta',
 // Westlock, AB — keeps the search near home
 const NEAR = { circle: { center: { latitude: 54.152, longitude: -113.857 }, radius: 50000 } };
 const NAME_CHECK = /solid\s*metal/i;
+// Solid Metal Roofing's Google listing. If it ever changes, set GOOGLE_PLACE_ID
+// in Vercel, or clear this to fall back to searching by name.
+const PLACE_ID = process.env.GOOGLE_PLACE_ID || 'ChIJ8XRgxngM7qYRaS-GILuSMAc';
 
 async function findPlaceId(key) {
   // Name + id only (Google's "Pro" tier: 5,000 free a month; this runs about weekly).
@@ -68,8 +71,8 @@ module.exports = async function handler(req, res) {
     if (!key) throw new Error('GOOGLE_PLACES_API_KEY is not set');
 
     let place = null;
-    if (process.env.GOOGLE_PLACE_ID) {
-      place = await getDetails(key, process.env.GOOGLE_PLACE_ID);
+    if (PLACE_ID) {
+      place = await getDetails(key, PLACE_ID);
     } else {
       // Only a match whose name looks like ours is used.
       const id = await findPlaceId(key);
