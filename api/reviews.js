@@ -20,7 +20,7 @@ async function findPlaceId(key) {
         'X-Goog-Api-Key': key,
         'X-Goog-FieldMask': 'places.id,places.displayName'
       },
-      body: JSON.stringify({ textQuery: q, pageSize: 10, locationBias: NEAR })
+      body: JSON.stringify({ textQuery: q, pageSize: 10, locationBias: NEAR, includePureServiceAreaBusinesses: true })
     });
     if (!r.ok) throw new Error('search ' + r.status + ' ' + (await r.text()).replace(/\s+/g, ' ').slice(0, 1500));
     const d = await r.json();
