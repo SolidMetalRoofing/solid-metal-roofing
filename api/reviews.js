@@ -5,23 +5,33 @@
 // reaches the browser.
 
 const WEEK = 7 * 24 * 60 * 60;
-const SEARCH_TEXT = 'Solid Metal Roofing, Westlock, Alberta';
+const SEARCHES = ['Solid Metal Roofing Westlock', 'Solid Metal Roofing Alberta', 'Solid Metal Roofing'];
+// Westlock, AB — keeps the search near home
+const NEAR = { circle: { center: { latitude: 54.152, longitude: -113.857 }, radius: 50000 } };
 const NAME_CHECK = /solid\s*metal/i;
 
 async function findPlaceId(key) {
-  // "IDs only" search: free on Google's price list.
-  const r = await fetch('https://places.googleapis.com/v1/places:searchText', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Goog-Api-Key': key,
-      'X-Goog-FieldMask': 'places.id'
-    },
-    body: JSON.stringify({ textQuery: SEARCH_TEXT, maxResultCount: 3 })
-  });
-  if (!r.ok) throw new Error('search ' + r.status + ' ' + (await r.text()).replace(/\s+/g, " ").slice(0, 1500));
-  const d = await r.json();
-  return (d.places || []).map(p => p.id);
+  // Name + id only (Google's "Pro" tier: 5,000 free a month; this runs about weekly).
+  for (const q of SEARCHES) {
+    const r = await fetch('https://places.googleapis.com/v1/places:searchText', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Goog-Api-Key': key,
+        'X-Goog-FieldMask': 'places.id,places.displayName'
+      },
+      body: JSON.stringify({ textQuery: q, pageSize: 10, locationBias: NEAR })
+    });
+    if (!r.ok) throw new Error('search ' + r.status + ' ' + (await r.text()).replace(/\s+/g, ' ').slice(0, 1500));
+    const d = await r.json();
+    const hit = (d.places || []).find(p => NAME_CHECK.test((p.displayName && p.displayName.text) || ''));
+    if (hit) {
+      console.log('reviews: using place', hit.id, hit.displayName.text);
+      return hit.id;
+    }
+    console.log('reviews: no match for "' + q + '":', (d.places || []).map(p => p.displayName && p.displayName.text).join(' | '));
+  }
+  return null;
 }
 
 async function getDetails(key, id) {
@@ -61,12 +71,10 @@ module.exports = async function handler(req, res) {
     if (process.env.GOOGLE_PLACE_ID) {
       place = await getDetails(key, process.env.GOOGLE_PLACE_ID);
     } else {
-      // Only the first match is fetched; its name must look like ours.
-      const ids = await findPlaceId(key);
-      if (!ids.length) throw new Error('business not found');
-      place = await getDetails(key, ids[0]);
-      const name = place.displayName && place.displayName.text;
-      if (!NAME_CHECK.test(name || '')) throw new Error('first match was "' + name + '", not ours');
+      // Only a match whose name looks like ours is used.
+      const id = await findPlaceId(key);
+      if (!id) throw new Error('business not found on Google');
+      place = await getDetails(key, id);
     }
 
     // Vercel's cache holds this for a week, then serves the old copy for a
