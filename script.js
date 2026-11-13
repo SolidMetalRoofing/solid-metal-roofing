@@ -408,6 +408,59 @@
     if (metaEl && parsed.meta.date) metaEl.textContent = parsed.meta.date + (parsed.meta.category ? '  •  ' + parsed.meta.category : '');
     if (crumbEl && parsed.meta.title) crumbEl.textContent = parsed.meta.title;
   }
+  /* ==========================================================
+     GOOGLE REVIEWS  (<div data-reviews>, filled from /api/reviews)
+     If anything fails the section stays hidden and only the
+     Google button shows, same as before.
+     ========================================================== */
+  var reviewsBox = $('[data-reviews]');
+  if (reviewsBox && window.fetch) {
+    var STAR = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>';
+    var starsHTML = function (n) {
+      var full = Math.round(n), h = '';
+      for (var s = 1; s <= 5; s++) h += '<span class="' + (s <= full ? 'on' : 'off') + '">' + STAR + '</span>';
+      return '<div class="stars rv-stars" role="img" aria-label="' + n + ' out of 5 stars">' + h + '</div>';
+    };
+    fetch('/api/reviews').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+      if (!d || !d.reviews || !d.reviews.length) return;
+      var sum = $('[data-review-sum]', reviewsBox);
+      var grid = $('[data-review-grid]', reviewsBox);
+      if (d.rating) {
+        sum.innerHTML = '<span class="rv-score">' + d.rating.toFixed(1) + '</span>' +
+          '<div class="rv-sum-text">' + starsHTML(d.rating) +
+          '<span class="muted">' + d.count + ' review' + (d.count === 1 ? '' : 's') + ' on Google</span></div>';
+      } else {
+        sum.hidden = true;
+      }
+      d.reviews.forEach(function (v) {
+        var card = el('article', 'card review-card');
+        var who = v.authorUrl
+          ? '<a href="' + escapeHTML(v.authorUrl) + '" target="_blank" rel="noopener noreferrer">' + escapeHTML(v.author) + '</a>'
+          : escapeHTML(v.author);
+        card.innerHTML = starsHTML(v.rating) +
+          '<p class="rv-text">' + escapeHTML(v.text) + '</p>' +
+          '<button type="button" class="rv-more" hidden aria-expanded="false">Read more</button>' +
+          '<div class="rv-foot"><span class="rv-who">' + who + '</span><span class="muted">' + escapeHTML(v.when) + (v.when ? ' · ' : '') + 'Google</span></div>';
+        grid.appendChild(card);
+      });
+      reviewsBox.hidden = false;
+      // "Read more" only on reviews that are actually cut off
+      $all('.review-card', grid).forEach(function (card) {
+        var p = $('.rv-text', card), b = $('.rv-more', card);
+        if (p.scrollHeight > p.clientHeight + 2) {
+          b.hidden = false;
+          b.addEventListener('click', function () {
+            var open = card.classList.toggle('open');
+            b.textContent = open ? 'Show less' : 'Read more';
+            b.setAttribute('aria-expanded', open ? 'true' : 'false');
+          });
+        }
+      });
+      var link = $('[data-reviews-link]');
+      if (link) link.firstChild.nodeValue = 'Read all reviews on Google ';
+    }).catch(function () { /* keep the Google button only */ });
+  }
+
   var slugParam = new URLSearchParams(window.location.search).get('slug');
   var universal = document.getElementById('article-body');
   if (slugParam && universal) loadBlogArticle(slugParam, universal);
