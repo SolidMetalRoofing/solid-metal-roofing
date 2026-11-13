@@ -19,7 +19,7 @@ async function findPlaceId(key) {
     },
     body: JSON.stringify({ textQuery: SEARCH_TEXT, maxResultCount: 3 })
   });
-  if (!r.ok) throw new Error('search ' + r.status + ' ' + (await r.text()).slice(0, 300));
+  if (!r.ok) throw new Error('search ' + r.status + ' ' + (await r.text()).replace(/\s+/g, " ").slice(0, 1500));
   const d = await r.json();
   return (d.places || []).map(p => p.id);
 }
@@ -31,7 +31,7 @@ async function getDetails(key, id) {
       'X-Goog-FieldMask': 'displayName,rating,userRatingCount,reviews,googleMapsUri'
     }
   });
-  if (!r.ok) throw new Error('details ' + r.status + ' ' + (await r.text()).slice(0, 300));
+  if (!r.ok) throw new Error('details ' + r.status + ' ' + (await r.text()).replace(/\s+/g, " ").slice(0, 1500));
   return r.json();
 }
 
