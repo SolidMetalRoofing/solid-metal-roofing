@@ -286,12 +286,16 @@ QUOTE = f'''    <section class="section" id="quote">
     </section>
 '''
 
-REVIEWS = f'''        <div class="card review-cta">
+REVIEWS = f'''        <div class="reviews" data-reviews hidden>
+          <div class="card review-sum" data-review-sum></div>
+          <div class="g3 review-grid" data-review-grid></div>
+        </div>
+        <div class="card review-cta">
           <div class="stack" style="gap:8px;max-width:640px">
             <h3 class="h-big" style="font-size:26px">Don&#39;t take my word for it.</h3>
             <p class="body">Read what past customers have said about their roofs on our Google profile.</p>
           </div>
-          <a href="{GOOGLE}" target="_blank" rel="noopener noreferrer" class="btn-outline">Read our reviews on Google {OUT}</a>
+          <a href="{GOOGLE}" target="_blank" rel="noopener noreferrer" class="btn-outline" data-reviews-link>Read our reviews on Google {OUT}</a>
         </div>
 '''
 
