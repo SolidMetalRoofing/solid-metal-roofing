@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Photos | Solid Metal Roofing</title>
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { padding-bottom: 110px; }
+    .ad-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 20px; border-bottom: 1px solid var(--line); background: #000; position: sticky; top: 0; z-index: 20; }
+    .ad-top img { height: 44px; width: auto; }
+    .ad-top .btn-outline { min-height: 44px; padding: 0 16px; font-size: 13px; }
+    .ad-wrap { max-width: 860px; margin: 0 auto; padding: 24px 16px; display: flex; flex-direction: column; gap: 22px; }
+    .ad-h { font-weight: 800; font-size: 28px; text-transform: uppercase; letter-spacing: .02em; }
+    .ad-note { color: var(--muted); font-size: 15px; }
+    .ad-login { max-width: 420px; margin: 48px auto; padding: 28px; display: flex; flex-direction: column; gap: 16px; }
+    .ad-err { color: #FF8A80; font-weight: 600; }
+    .ad-ok { color: var(--green); font-weight: 700; }
+    .ad-tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+    .ad-tabs button { flex: 0 0 auto; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid #3A3A3A; background: var(--card); color: #E6E6E6; font: inherit; font-weight: 700; cursor: pointer; }
+    .ad-tabs button[aria-pressed="true"] { background: var(--green); color: #0A0A0A; border-color: var(--green); }
+    .ad-list { display: flex; flex-direction: column; gap: 14px; }
+    .ad-photo { display: grid; grid-template-columns: 120px 1fr; gap: 14px; padding: 14px; }
+    .ad-photo > img { width: 120px; height: 120px; object-fit: cover; border-radius: 10px; background: #000; }
+    .ad-fields { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+    .ad-fields .field input, .ad-fields .field select { min-height: 44px; }
+    .ad-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .ad-row button, .ad-row select { min-height: 44px; min-width: 44px; padding: 0 12px; border-radius: 10px; border: 1px solid #3A3A3A; background: #0F0F0F; color: #FFF; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+    .ad-row button.danger { color: #FF8A80; border-color: #5A2A2A; }
+    .ad-row button:disabled { opacity: .35; cursor: default; }
+    .ad-add { display: flex; flex-direction: column; gap: 8px; padding: 18px; border: 2px dashed #3A3A3A; border-radius: 14px; text-align: center; }
+    .ad-add input { display: none; }
+    .ad-busy { color: var(--muted); font-size: 15px; }
+    .ad-single { padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+    .ad-single img { width: 100%; max-height: 360px; object-fit: cover; border-radius: 10px; }
+    .ad-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: #000; border-top: 1px solid var(--green-deep); padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .ad-bar .btn { min-height: 50px; padding: 0 22px; }
+    .ad-bar .btn:disabled { opacity: .4; cursor: default; box-shadow: none; }
+    .ad-status { font-size: 15px; color: var(--muted); }
+    [hidden] { display: none !important; }
+    @media (max-width: 520px) {
+      .ad-photo { grid-template-columns: 1fr; }
+      .ad-photo > img { width: 100%; height: 220px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="ad-top">
+    <img src="assets/logo.png" alt="Solid Metal Roofing">
+    <span class="ad-h" style="font-size:18px">Photo page</span>
+    <button type="button" class="btn-outline" id="logoutBtn" hidden>Sign out</button>
+  </header>
+
+  <!-- Sign in -->
+  <form class="card ad-login" id="loginForm" hidden>
+    <h1 class="ad-h">Sign in</h1>
+    <p class="ad-note">This page is private. Enter the password you saved in Vercel.</p>
+    <div class="field">
+      <label for="pw">Password</label>
+      <input id="pw" type="password" autocomplete="current-password" required>
+    </div>
+    <p class="ad-err" id="loginErr" hidden></p>
+    <button type="submit" class="btn">Sign in</button>
+  </form>
+
+  <!-- Editor -->
+  <main class="ad-wrap" id="editor" hidden>
+    <div>
+      <h1 class="ad-h">Your photos</h1>
+      <p class="ad-note">Add, label, reorder or remove photos, then tap <strong>Save changes</strong>. The website updates within about 2 minutes.</p>
+    </div>
+    <div class="ad-tabs" role="toolbar" aria-label="Which photos" id="tabs"></div>
+    <section id="galleryPane">
+      <div class="ad-list" id="list"></div>
+      <label class="ad-add" style="margin-top:14px">
+        <span class="btn">Add photos</span>
+        <span class="ad-note">Pick one or several from your phone. They are made smaller automatically.</span>
+        <input type="file" id="addInput" accept="image/*" multiple>
+      </label>
+      <p class="ad-busy" id="addBusy" hidden></p>
+    </section>
+    <section id="singlePane" hidden></section>
+  </main>
+
+  <div class="ad-bar" id="bar" hidden>
+    <span class="ad-status" id="status">No changes</span>
+    <button type="button" class="btn" id="saveBtn" disabled>Save changes</button>
+  </div>
+
+  <script src="site-data.js"></script>
+  <script src="admin-app.js"></script>
+</body>
+</html>

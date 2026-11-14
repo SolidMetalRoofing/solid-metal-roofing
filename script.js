@@ -133,7 +133,30 @@
   /* ==========================================================
      PHOTO GALLERY CARDS  (<div data-gallery="residential">)
      ========================================================== */
-  if (typeof GALLERIES !== 'undefined') {
+  // Photo lists come from the photo page (stored online). If that can't be
+  // reached quickly, the lists in site-data.js are used instead.
+  var PHOTO_DATA = 'https://mttgkfr92yzwx5eu.public.blob.vercel-storage.com/data/photos.json';
+  function loadPhotos(done) {
+    var finished = false;
+    function finish(data) {
+      if (finished) return;
+      finished = true;
+      if (data && data.galleries) {
+        Object.keys(GALLERIES).forEach(function (k) {
+          var g = data.galleries[k];
+          if (g && Array.isArray(g.photos)) GALLERIES[k].photos = g.photos;
+        });
+      }
+      done();
+    }
+    if (!window.fetch || !$('[data-gallery], #workGrid')) return finish(null);
+    setTimeout(function () { finish(null); }, 2500);
+    fetch(PHOTO_DATA).then(function (r) { return r.ok ? r.json() : null; })
+      .then(finish).catch(function () { finish(null); });
+  }
+
+  if (typeof GALLERIES !== 'undefined') loadPhotos(renderGalleries);
+  function renderGalleries() {
     $all('[data-gallery]').forEach(function (host) {
       var G = GALLERIES[host.getAttribute('data-gallery')];
       if (!G || !G.photos.length) return;
@@ -178,7 +201,7 @@
       all.forEach(function (a) {
         var b = el('button', 'work-item');
         b.type = 'button';
-        b.innerHTML = '<img loading="lazy" src="' + a.p.src + '" alt="' + escapeHTML(a.p.alt || '') + '">' +
+        b.innerHTML = '<img loading="lazy" src="' + escapeHTML(a.p.src) + '" alt="' + escapeHTML(a.p.alt || '') + '">' +
           (a.p.tag ? '<span class="gal-tag' + (a.p.tag === 'After' ? ' after' : '') + '">' + escapeHTML(a.p.tag) + '</span>' : '') +
           (a.p.caption ? '<span class="gal-cap">' + escapeHTML(a.p.caption) + '</span>' : '');
         b.addEventListener('click', function () {

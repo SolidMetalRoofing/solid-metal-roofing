@@ -1,0 +1,8 @@
+{
+  "name": "solid-metal-roofing",
+  "private": true,
+  "description": "Static site. The only dependency is for the photo page's server piece (api/admin.js).",
+  "dependencies": {
+    "@vercel/blob": "^2.0.0"
+  }
+}
