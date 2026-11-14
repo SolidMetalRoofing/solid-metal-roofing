@@ -1,0 +1,15 @@
+{
+  "id": "/admin.html",
+  "name": "Solid Metal Roofing Photos",
+  "short_name": "SMR Photos",
+  "icons": [
+    { "src": "assets/admin-icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/admin-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/admin-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "start_url": "/admin.html",
+  "scope": "/admin.html",
+  "display": "standalone",
+  "background_color": "#0A0A0A",
+  "theme_color": "#000000"
+}
