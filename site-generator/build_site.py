@@ -486,10 +486,10 @@ write('about.html', head('About Solid Metal Roofing | Metal Roofer in Westlock, 
         </div>
 ''') + section(banner('Why choose us') + '''
         <div class="g2">
-          <div class="card card-body value"><h3>Licensed &amp; insured</h3><p>Fully licensed, WCB-covered, and insured for your peace of mind on every project.</p></div>
+          <div class="card card-body value"><h3>WCB &amp; insured</h3><p>WCB-covered and insured for the roofing season, for your peace of mind on every project.</p></div>
           <div class="card card-body value"><h3>Transparent pricing</h3><p>Detailed, written quotes with no hidden fees. You know the cost before we touch a single panel.</p></div>
           <div class="card card-body value"><h3>On-time delivery</h3><p>We set a schedule and stick to it. No ghosting, no month-long delays, no excuses.</p></div>
-          <div class="card card-body value"><h3>Warranty backed</h3><p>Our workmanship warranty sits on top of manufacturer material warranties. Double the protection.</p></div>
+          <div class="card card-body value"><h3>2-year workmanship warranty</h3><p>Our 2-year workmanship warranty sits on top of the manufacturer&#39;s material warranty. Double the protection.</p></div>
         </div>
 ''') + QUOTE + footer())
 
