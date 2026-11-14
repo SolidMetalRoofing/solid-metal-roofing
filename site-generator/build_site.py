@@ -36,7 +36,7 @@ def head(title, desc, path, extra=''):
   <meta property="og:title" content="{title}">
   <meta property="og:description" content="{desc}">
   <meta property="og:url" content="{url}">
-  <meta property="og:image" content="{BASE}assets/photos/share.jpg">
+  <meta property="og:image" content="{PHOTOS}/site/share.jpg">
   <meta name="theme-color" content="#0A0A0A">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -320,7 +320,7 @@ LD_BUSINESS = f'''  <script type="application/ld+json">
     "name": "Solid Metal Roofing",
     "url": "{BASE}",
     "logo": "{BASE}assets/logo.png",
-    "image": "{BASE}assets/photos/share.jpg",
+    "image": "{PHOTOS}/site/share.jpg",
     "telephone": "{PHONE_T}",
     "email": "{EMAIL}",
     "description": "Metal reroofs and metal roof repairs for homes, barns and shops in Westlock, Alberta and area.",
